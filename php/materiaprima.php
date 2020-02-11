@@ -1,7 +1,7 @@
 <?php 
 
 require_once("conexion.php");
-class Materiaprima{
+class Materiaprima extends Conexion{
 
 	public function alta($nombre,$tipo,$descripcion,$precio,$stock,$existencias){
 		$this->sentencia ="INSERT INTO materiaprima VALUES (null,'$nombre','$tipo','$descripcion','$precio','$stock','$existencias')";
@@ -15,7 +15,7 @@ class Materiaprima{
 
 	public function consulta(){
 		$this->sentencia = "SELECT * FROM materiaprima";
-		return $this->obetenerSentencia();
+		return $this->obtenerSentencia();
 	}
 	public function modificar($nombre,$tipo,$descripcion,$precio,$stock,$existencias){
 		$this->sentencia="UPDATE FROM materiaprima SET nombre='$nombre',tipo='$tipo',descripcion='$descripcion',precio='$precio',stock='$stock',existencias='$existencias' WHERE IDmateriaprima='$id'";

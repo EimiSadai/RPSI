@@ -1,7 +1,7 @@
 <?php 
 
 require_once("conexion.php");
-class Pedido{
+class Pedido extends Conexion{
 
 	public function alta($fecha,$IDcliente,$precio,$cantidad,$direccion,$IDproducto){
 		$this->sentencia ="INSERT INTO pedido VALUES (null,'$fecha','$IDcliente','$precio','$cantidad','$direccion','$IDproducto')";
@@ -15,7 +15,7 @@ class Pedido{
 
 	public function consulta(){
 		$this->sentencia = "SELECT * FROM pedido";
-		return $this->obetenerSentencia();
+		return $this->obtenerSentencia();
 	}
 	public function modificar($fecha,$IDcliente,$precio,$cantidad,$direccion,$IDproducto){
 		$this->sentencia="UPDATE FROM pedido SET fecha='$fecha',IDcliente='$IDcliente',precio='$precio',cantidad='$cantidad',direccion='$direccion',IDproducto='$IDproducto' WHERE IDpedido='$id'";

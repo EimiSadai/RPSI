@@ -1,7 +1,7 @@
 <?php 
 
 require_once("conexion.php");
-class Mobiliario{
+class Mobiliario extends Conexion{
 
 	public function alta($nombre,$descripcion,$cantidad,$nic,$tipo){
 		$this->sentencia ="INSERT INTO mobiliario VALUES (null,'$nombre','$descripcion','$cantidad','$nic','$tipo')";
@@ -15,7 +15,7 @@ class Mobiliario{
 
 	public function consulta(){
 		$this->sentencia = "SELECT * FROM mobiliario";
-		return $this->obetenerSentencia();
+		return $this->obtenerSentencia();
 	}
 	public function modificar($nombre,$descripcion,$cantidad,$nic,$tipo){
 		$this->sentencia="UPDATE FROM mobiliario SET nombre='$nombre',descripcion='$descripcion',cantidad='$cantidad',nic='$nic',tipo='$tipo' WHERE IDmobiliario='$id'";
