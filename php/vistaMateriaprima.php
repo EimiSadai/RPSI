@@ -1,3 +1,17 @@
+<div id="grafica">
+  <form action="" method="post">
+    <input type="hidden" value="materiaprima" name="tabla">
+    <input type="hidden" value="precio" name="dato"> 
+    <input type="hidden" value="stock" name="encabezado">  
+    <input type="submit" name="grafica" value="Graficar">    
+  </form>  
+</div>
+
+<?php 
+  if (isset($_POST["grafica"])) {
+    require_once("php/grafica.php");
+  }
+?>
 <form action="" method="post">
     <br>
 	<input type="text" name="nombre" placeholder="Nombre:">
@@ -31,6 +45,23 @@
      	$obj->alta($nombre,$tipo,$descripcion,$precio,$stock,$existencias);
      	echo "<h2>Materia Prima registrada</h2>";
      }
+     if (isset($_POST["eliminar"])) {
+          echo "<script>
+          var opcion = confirm('¿Deseas eliminar la Materia prima?');
+          if (opcion===true) {
+              window.location.href = 'index.php?el=".$_POST["id"]."';
+          }
+          </script>";
+     }
+          if(isset($_GET["el"])){
+               $obj->eliminar($_GET["el"]);
+               //echo "<h2>Usuario eliminado</h2>";
+               echo "<script>
+               alert('Materia prima eliminada');
+               window.location.href = 'index.php';
+               </script>";
+               //header("index.php");
+          }
  ?>
 
  <table>
@@ -41,6 +72,8 @@
           <th>Precio</th>
           <th>Stock</th>
           <th>Existencias</th>
+          <th>Eliminar</th>
+          <th>Modificar</th>
  	</tr>
  	<?php 
  	  $res = $obj->consulta();
@@ -55,6 +88,16 @@
              echo "<td>".$fila["existencias"]."</td>";
 
  	   	   echo "<tr>";
- 	   }
  	 ?>
+   <td>
+                  <form action="" method="post">
+                    <input type="hidden" value="<?php echo $fila['IDmateriaprima'] ?>" name="id">
+                    <input type="submit" name="eliminar" value="Eliminar">
+                       
+                  </form>
+             </td>
+             <?php
+         echo "<tr>";
+     }
+   ?>
  </table>

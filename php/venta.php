@@ -17,7 +17,7 @@ class Venta extends Conexion{
 		$this->sentencia = "SELECT * FROM venta";
 		return $this->obtenerSentencia();
 	}
-	public function modificar($fecha,$IDcliente,$total,$tipo_pago){
+	public function modificar($fecha,$total,$tipo_pago,$IDcliente,$id){
 		$this->sentencia="UPDATE FROM venta SET fecha='$fecha',IDcliente='$IDcliente',total='$total',tipo_pago='$tipo_pago' WHERE IDventa='$id'";
 		$this->ejecutarSentencia();
 	}
