@@ -1,3 +1,8 @@
+<?php
+require_once ("remplazo.php");
+        $obj = new Remplazo();
+        if(!isset($_POST["modificar"])){ 
+?>
 <div id="grafica">
   <form action="" method="post">
     <input type="hidden" value="remplazo" name="tabla">
@@ -25,22 +30,45 @@
      <br>
      <input type="submit" name="alta" value="Guardar Remplazo">
 </form>
+<?php }else{ 
+    $res = $obj->buscar($_POST["id"]);
+    $fila = $res->fetch_assoc();
+?>
+<form action="" method="post">
+<input type="text" name="IDmobiliario" placeholder="Mobiliario: " value= '<?php echo $fila["IDmobiliario"] ?>'><br>
+<input type="text" name="fecha" placeholder="Fecha: " value= '<?php echo $fila["fecha"] ?>'><br>
+<input type="text" name="costo" placeholder="Costo: " value= '<?php echo $fila["costo"] ?>'><br>
+<input type="text" name="descripcion" placeholder="Descripcion: " value= '<?php echo $fila["descripcion"] ?>'><br>
+</select><br>
+<input type="hidden" value='<?php echo $_POST["id"] ?>' name="id">
+<input type="submit" name="mod" value="Modificar Remplazo">
+</form>
 <?php 
-     require_once ("remplazo.php");
-        $obj = new Remplazo();
-     if (isset($_POST["alta"]))
-     {      # code...
-        $fecha = $_POST["fecha"];
-        $costo = $_POST["costo"];
-        $descripcion = $_POST["descripcion"];
-        $obj->alta($fecha,$costo,$descripcion);
-        echo "<h2>Remplazo Registrado</h2>";
-     }
+}
+    if(isset($_POST["alta"])){
+    
+    $fecha=$_POST["fecha"];
+    $costo=$_POST["costo"];
+    $descripcion=$_POST["descripcion"];
+    require_once("remplazo.php");
+    $obj=new Remplazo();
+    $obj->alta($fecha,$costo,$descripcion);
+    echo"<h2>Remplazo Guardado<h2>";
+}
+     if(isset($_POST["mod"])){
+    $IDmobiliario=$_POST["IDmobiliario"];
+    $fecha=$_POST["fecha"];
+    $costo=$_POST["costo"];
+    $descripcion=$_POST["descripcion"];
+    $id = $_POST["id"];
+    $obj->modificar($IDmobiliario,$fecha,$costo,$descripcion,$id);
+    echo "<h2>Remplazo modificado</h2>";
+}
      if (isset($_POST["eliminar"])) {
           echo "<script>
           var opcion = confirm('¿Deseas eliminar el Remplazo?');
           if (opcion===true) {
-              window.location.href = 'index.php?el=".$_POST["id"]."';
+              window.location.href = 'home.php?sec=remplazo&el=".$_POST["id"]."';
           }
           </script>";
      }
@@ -49,12 +77,11 @@
                //echo "<h2>Usuario eliminado</h2>";
                echo "<script>
                alert('Remplazo eliminado');
-               window.location.href = 'index.php';
+               window.location.href = 'home.php?sec=remplazo';
                </script>";
                //header("index.php");
           }
  ?>
-
  <table>
     <tr>
         <th>Fecha</th>
@@ -71,7 +98,6 @@
            echo "<td>".$fila["fecha"]."</td>";
            echo "<td>".$fila["costo"]."</td>";
            echo "<td>".$fila["descripcion"]."</td>";
-           echo "<tr>";
      ?>
      <td>
                   <form action="" method="post">
@@ -80,6 +106,12 @@
                        
                   </form>
              </td>
+             <td>
+          <form action="" method="post">
+            <input type="hidden" value="<?php echo $fila['IDremplazo']?>" name="id">
+            <input type="submit" name="modificar" value="Modificar">
+          </form>
+        </td>
              <?php
          echo "<tr>";
      }

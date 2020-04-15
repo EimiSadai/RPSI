@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (!isset($_SESSION["autenticado"])) {
-    	heaer("Location: index.php");
+    	header("Location: index.php");
      } 
 ?>
 <!DOCTYPE html>
@@ -22,7 +22,7 @@
 				<a href="?sec=remplazo"><li>Remplazo</li></a>
 				<a href="?sec=proveedor"><li>Proveedor</li></a>
 				<a href="?sec=producto"><li>Producto</li></a>
-				<a href="?sec=pedido"><li>Pediso</li></a>
+				<a href="?sec=pedido"><li>Pedido</li></a>
 				<a href="?sec=mobiliario"><li>Mobiliario</li></a>
 				<a href="?sec=materia"><li>Materia prima</li></a>
 				<a href="?sec=mantenimiento"><li>Mantenimiento</li></a>

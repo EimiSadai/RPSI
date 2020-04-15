@@ -21,6 +21,10 @@ class Venta extends Conexion{
 		$this->sentencia="UPDATE FROM venta SET fecha='$fecha',IDcliente='$IDcliente',total='$total',tipo_pago='$tipo_pago' WHERE IDventa='$id'";
 		$this->ejecutarSentencia();
 	}
+	public function buscar($id){
+        $this->sentencia = "SELECT * FROM venta WHERE IDventa=$id";
+        return $this->obtenerSentencia();
+    }
 
 }
 

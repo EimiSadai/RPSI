@@ -17,7 +17,6 @@ if(!isset($_POST["modificar"])){
 
     $fila = $res->fetch_assoc();
     ?>
-
 <form action="" method="post">
 <input type="text" name="nombre" placeholder="Nombre: " value='<?php echo $fila["nombre"] ?>'><br>
 <input type="text" name="telefono" placeholder="Telefono: " value='<?php echo $fila["telefono"] ?>'><br>
@@ -39,25 +38,21 @@ if(isset($_POST["alta"])){
     $obj->alta($nombre,$telefono,$direccion,$correo,$rfc);
     echo"<h2>Proveedor Registrado<h2>";
 }
-
 if(isset($_POST["mod"])){
     $nombre=$_POST["nombre"];
     $telefono=$_POST["telefono"];
     $direccion=$_POST["direccion"];
     $correo=$_POST["correo"];
     $rfc=$_POST["rfc"];
-
     $id = $_POST["id"];
-
     $obj->modificar($nombre,$telefono,$direccion,$correo,$rfc,$id);
     echo "<h2>Usuario modificado</h2>";
 }
-
 if(isset($_POST["eliminar"])){
     echo "<script>
     var opcion = confirm('¿Deseas eliminar el Proveedor?');
     if(opcion===true){
-        window.location.href = 'home.php?sec=prov&el=".$_POST["id"]."';
+        window.location.href = 'home.php?sec=proveedor&el=".$_POST["id"]."';
     }
     </script>";
 }
@@ -65,7 +60,7 @@ if(isset($_GET["el"])){
     $obj->baja($_GET["el"]);
     echo "<script>
         alert('Proveedor eliminado');
-        window.location.href = 'home.php?sec=prov';
+        window.location.href = 'home.php?sec=proveedor';
     </script>";
 }
 ?>
@@ -95,7 +90,6 @@ if(isset($_GET["el"])){
  <input type="submit" name="eliminar" value="Eliminar">
                 </form>
             </td>
-
             <td>
                 <form action="" method="post">
  <input type="hidden" value="<?php echo $fila['IDproveedor'] ?>" name="id">

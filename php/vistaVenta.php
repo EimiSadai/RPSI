@@ -1,3 +1,11 @@
+ <?php 
+ require_once ("venta.php");
+        $obj = new Venta();
+        if(!isset($_POST["modificar"])){ 
+ ?>
+ <div>
+     <form method="get" action="http://localhost/RPSI/php/reporteVenta.php "><button type="submit">Reporte Venta</button></form>
+ </div>
 <div id="grafica">
   <form action="" method="post">
     <input type="hidden" value="venta" name="tabla">
@@ -28,9 +36,23 @@
      <br>
      <input type="submit" name="alta" value="Guardar Venta">
 </form>
+<?php }else{ 
+    $res = $obj->buscar($_POST["id"]);
+    $fila = $res->fetch_assoc();
+?>
+
+<form action="" method="post">
+<input type="text" name="fecha" placeholder="Fecha: " value= '<?php echo $fila["fecha"] ?>'><br>
+<input type="text" name="IDCliente" placeholder="IDcliente: " value= '<?php echo $fila["IDcliente"] ?>'><br>
+<input type="text" name="total" placeholder="Total " value= '<?php echo $fila["total"] ?>'><br>
+<input type="text" name="tipo_pago" placeholder="Tipo de pago: " value= '<?php echo $fila["tipo_pago"] ?>'><br>
+</select><br>
+<input type="hidden" value='<?php echo $_POST["id"] ?>' name="id">
+<input type="submit" name="mod" value="Modificar Venta">
+</form>
 <?php 
-     require_once ("venta.php");
-        $obj = new Venta();
+}
+    
      if (isset($_POST["alta"]))
      {      # code...
         $fecha = $_POST["fecha"];
@@ -40,17 +62,15 @@
         $obj->alta($fecha,$IDcliente,$total,$tipo_pago);
         echo "<h2>Venta Registrada</h2>";
      }
-    if (isset($_POST["mod"]))
-     {    
-      $fecha = $_POST["fecha"];
-      $total = $_POST["total"];
-      $tipo_pago = $_POST["tipo_pago"];
-      $IDcliente = $_POST["id_cliente"];
-      $id = $_POST["id"];
-
-      $obj->modificar($fecha,$total,$tipo_pago,$IDcliente);
-      echo "<h2>Venta modificado</h2>";
-     }
+    if(isset($_POST["mod"])){
+    $fecha = $_POST["fecha"];
+    $IDCliente = $_POST["IDCliente"];
+    $total = $_POST["total"];
+    $tipo_pago = $_POST["tipo_pago"];
+    $id = $_POST["id"];
+    $obj->modificar($fecha,$IDCliente,$total,$tipo_pago,$id);
+    echo "<h2>Venta modificada</h2>";
+}
      if (isset($_POST["eliminar"])) {
           echo "<script>
           var opcion = confirm('¿Deseas eliminar la venta?');
@@ -97,8 +117,7 @@
              <td>
                   <form action="" method="post">
                     <input type="hidden" value="<?php echo $fila['IDventa'] ?>" name="id">
-                    <input type="submit" name="modificar" value="Modificar">
-                       
+                    <input type="submit" name="modificar" value="Modificar"> 
                   </form>
              </td>
 
